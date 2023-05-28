@@ -1,0 +1,29 @@
+nav {
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	width: 100%;
+	padding: 1.5rem;
+	background-color: peachpuff;
+	border-bottom: 5px solid orange;
+}
+h1 {
+	font-size: 2rem;
+}
+ul {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	font-size: 1.5rem;
+}
+li {
+	padding: 0.5rem;
+}
+a {
+	text-decoration: none;
+}
+.active-link {
+	color: violet;
+	background-color: lightyellow;
+	border-radius: 1rem;
+}

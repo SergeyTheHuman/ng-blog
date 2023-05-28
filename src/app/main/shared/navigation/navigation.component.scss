@@ -1,0 +1,18 @@
+nav {
+	width: 100%;
+	padding: 1.5rem;
+	background-color: peachpuff;
+	border-bottom: 5px solid orange;
+
+	ul {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		font-size: 2rem;
+
+		a {
+			text-decoration: none;
+			color: black;
+		}
+	}
+}

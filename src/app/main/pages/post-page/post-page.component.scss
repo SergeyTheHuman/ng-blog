@@ -1,0 +1,33 @@
+article {
+	margin-top: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+
+	header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 2.5rem;
+		margin-bottom: 1rem;
+	}
+	.info {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 1.25rem;
+
+		strong {
+			font-weight: 700;
+		}
+		time {
+			color: #707070;
+		}
+	}
+	.text {
+		font-size: 1.25rem;
+		color: #707070;
+	}
+	footer {
+	}
+}

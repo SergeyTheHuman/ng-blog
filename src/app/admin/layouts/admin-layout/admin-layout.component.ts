@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 
 @Component({
-	selector: 'app-admin-layout',
+	selector: 'isv-admin-layout',
 	templateUrl: './admin-layout.component.html',
 	styleUrls: ['./admin-layout.component.scss'],
 })

@@ -7,6 +7,8 @@ import { MainLayoutComponent } from '@src/app/main/layouts/main-layout/main-layo
 import { HomePageComponent } from '@src/app/main/pages/home-page/home-page.component'
 import { PostPageComponent } from '@src/app/main/pages/post-page/post-page.component'
 import { TuiButtonModule, TuiRootModule } from '@taiga-ui/core'
+import { NavigationComponent } from './main/shared/navigation/navigation.component'
+import { PostComponent } from './main/shared/post/post.component'
 
 @NgModule({
 	declarations: [
@@ -14,6 +16,8 @@ import { TuiButtonModule, TuiRootModule } from '@taiga-ui/core'
 		MainLayoutComponent,
 		HomePageComponent,
 		PostPageComponent,
+		NavigationComponent,
+		PostComponent,
 	],
 	imports: [
 		BrowserModule,

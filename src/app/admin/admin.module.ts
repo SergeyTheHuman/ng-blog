@@ -6,6 +6,18 @@ import { EditPageComponent } from '@admin/pages/edit-page/edit-page.component'
 import { LoginPageComponent } from '@admin/pages/login-page/login-page.component'
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { AdminNavigationComponent } from '@src/app/admin/shared/navigation/navigation.component'
+import {
+	TuiButtonModule,
+	TuiErrorModule,
+	TuiTextfieldControllerModule,
+} from '@taiga-ui/core'
+import {
+	TuiFieldErrorPipeModule,
+	TuiInputModule,
+	TuiInputPasswordModule,
+} from '@taiga-ui/kit'
 
 @NgModule({
 	declarations: [
@@ -14,8 +26,20 @@ import { NgModule } from '@angular/core'
 		DashboardPageComponent,
 		CreatePageComponent,
 		EditPageComponent,
+		AdminNavigationComponent,
 	],
-	imports: [CommonModule, AdminRouting],
+	imports: [
+		CommonModule,
+		AdminRouting,
+		FormsModule,
+		ReactiveFormsModule,
+		TuiInputModule,
+		TuiErrorModule,
+		TuiInputPasswordModule,
+		TuiFieldErrorPipeModule,
+		TuiTextfieldControllerModule,
+		TuiButtonModule,
+	],
 	exports: [],
 })
 export class AdminModule {}

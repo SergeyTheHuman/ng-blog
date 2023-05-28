@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 
 @Component({
-	selector: 'app-edit-page',
+	selector: 'isv-edit-page',
 	templateUrl: './edit-page.component.html',
 	styleUrls: ['./edit-page.component.scss'],
 })

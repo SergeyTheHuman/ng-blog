@@ -1,1 +1,45 @@
-<p>login-page works!</p>
+<form
+	[formGroup]="form"
+	class="form"
+	(submit)="submit()"
+>
+	<h2>Login in admin panel</h2>
+
+	<div class="form-control">
+		<label tuiLabel="Type the ultimate answer">
+			<tui-input formControlName="email">Email</tui-input>
+			<tui-error
+				formControlName="email"
+				[error]="[] | tuiFieldError | async"
+			></tui-error>
+		</label>
+	</div>
+
+	<div class="form-control">
+		<label tuiLabel="Type the ultimate answer">
+			<tui-input-password formControlName="password">
+				Type a password
+				<input
+					tuiTextfield
+					placeholder="Make it secure!"
+				/>
+			</tui-input-password>
+			<tui-error
+				formControlName="password"
+				[error]="[] | tuiFieldError | async"
+			></tui-error>
+		</label>
+	</div>
+
+	<footer>
+		<button
+			tuiButton
+			type="submit"
+			appearance="primary"
+			size="m"
+			[disabled]="form.invalid"
+		>
+			Login
+		</button>
+	</footer>
+</form>
