@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router'
 import { MainLayoutComponent } from '@src/app/main/layouts/main-layout/main-layout.component'
 import { HomePageComponent } from '@src/app/main/pages/home-page/home-page.component'
 import { PostPageComponent } from '@src/app/main/pages/post-page/post-page.component'
@@ -34,7 +34,11 @@ const routes: Routes = [
 ]
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes)],
+	imports: [
+		RouterModule.forRoot(routes, {
+			preloadingStrategy: PreloadAllModules,
+		}),
+	],
 	exports: [RouterModule],
 })
 export class AppRoutingModule {}

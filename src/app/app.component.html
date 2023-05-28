@@ -1,1 +1,23 @@
-<router-outlet></router-outlet>
+<tui-root>
+	<router-outlet></router-outlet>
+	<ng-container ngProjectAs="tuiOverContent">
+		<!-- Content over app content -->
+		tuiOverContent
+	</ng-container>
+	<ng-container ngProjectAs="tuiOverDialogs">
+		<!-- Content over dialogs -->
+		tuiOverDialogs
+	</ng-container>
+	<ng-container ngProjectAs="tuiOverAlerts">
+		<!-- Content over alerts -->
+		tuiOverAlerts
+	</ng-container>
+	<ng-container ngProjectAs="tuiOverPortals">
+		<!-- Content over dropdowns -->
+		tuiOverPortals
+	</ng-container>
+	<ng-container ngProjectAs="tuiOverHints">
+		<!-- Content over hints -->
+		tuiOverHints
+	</ng-container>
+</tui-root>
