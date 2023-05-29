@@ -8,8 +8,8 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AdminNavigationComponent } from '@src/app/admin/shared/navigation/navigation.component'
-import { AuthService } from '@src/app/admin/shared/services/auth.service'
 import { SharedModule } from '@src/app/shared/shared.module'
+import { TuiEditorModule } from '@taiga-ui/addon-editor'
 import {
 	TuiButtonModule,
 	TuiErrorModule,
@@ -42,8 +42,8 @@ import {
 		TuiFieldErrorPipeModule,
 		TuiTextfieldControllerModule,
 		TuiButtonModule,
+		TuiEditorModule,
 	],
 	exports: [],
-	providers: [AuthService],
 })
 export class AdminModule {}

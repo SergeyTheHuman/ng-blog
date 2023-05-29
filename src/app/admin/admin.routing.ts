@@ -5,6 +5,7 @@ import { EditPageComponent } from '@admin/pages/edit-page/edit-page.component'
 import { LoginPageComponent } from '@admin/pages/login-page/login-page.component'
 import { NgModule } from '@angular/core'
 import { Route, RouterModule } from '@angular/router'
+import { authGuard } from '@src/app/admin/shared/guards/auth.guard'
 
 const routes: Route[] = [
 	{
@@ -13,7 +14,7 @@ const routes: Route[] = [
 		children: [
 			{
 				path: '',
-				redirectTo: '/admin/login',
+				redirectTo: '/admin/dashboard',
 				pathMatch: 'full',
 			},
 			{
@@ -23,14 +24,17 @@ const routes: Route[] = [
 			{
 				path: 'dashboard',
 				component: DashboardPageComponent,
+				canActivate: [authGuard],
 			},
 			{
 				path: 'create',
 				component: CreatePageComponent,
+				canActivate: [authGuard],
 			},
 			{
 				path: 'post/:id/edit',
 				component: EditPageComponent,
+				canActivate: [authGuard],
 			},
 		],
 	},

@@ -10,7 +10,7 @@ import { AuthService } from '@src/app/admin/shared/services/auth.service'
 export class AdminNavigationComponent {
 	constructor(
 		private readonly router: Router,
-		private readonly authService: AuthService,
+		public readonly authService: AuthService,
 	) {}
 
 	logout(event: Event) {

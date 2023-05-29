@@ -1,1 +1,57 @@
-<p>create-page works!</p>
+<form
+	class="form"
+	[formGroup]="form"
+	(submit)="submit()"
+>
+	<h2>Creating post</h2>
+
+	<div class="form-control">
+		<h4>Title</h4>
+		<tui-input formControlName="title">Title</tui-input>
+		<tui-error
+			formControlName="title"
+			[error]="[] | tuiFieldError | async"
+		></tui-error>
+	</div>
+
+	<div class="form-control">
+		<h4>Content</h4>
+		<tui-editor
+			exampleText="Example"
+			formControlName="content"
+		>
+			Placeholder
+		</tui-editor>
+		<tui-error
+			formControlName="content"
+			[error]="[] | tuiFieldError | async"
+		></tui-error>
+	</div>
+
+	<div class="form-control">
+		<h4>Author</h4>
+		<tui-input formControlName="author">
+			Type a author
+			<input
+				tuiTextfield
+				placeholder="Make it secure!"
+			/>
+		</tui-input>
+		<tui-error
+			formControlName="author"
+			[error]="[] | tuiFieldError | async"
+		></tui-error>
+	</div>
+
+	<footer>
+		<button
+			tuiButton
+			type="submit"
+			appearance="primary"
+			size="m"
+			[disabled]="form.invalid"
+		>
+			Create
+		</button>
+	</footer>
+</form>

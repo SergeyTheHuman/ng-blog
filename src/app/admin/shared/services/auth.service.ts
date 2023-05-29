@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http'
-import { Inject, Injectable } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { IFireBaseAuthResponse } from '@src/app/admin/shared/interfaces/firebase-auth.interface'
 import { IUser } from '@src/app/admin/shared/interfaces/user.interface'
-import { ErrorsService } from '@src/app/shared/services/errors/errors.service'
+import { NotificationsService } from '@src/app/shared/services/notifications/notifications.service'
 import { environment } from '@src/environments/environment'
-import { TuiAlertService, TuiNotification } from '@taiga-ui/core'
-import { catchError, EMPTY, Observable, tap } from 'rxjs'
+import { catchError, EMPTY, Observable, of, tap } from 'rxjs'
 
-@Injectable()
+@Injectable({
+	providedIn: 'root',
+})
 export class AuthService {
 	get token(): string | null {
 		const expiresDateStr: string =
@@ -26,23 +27,14 @@ export class AuthService {
 		return localStorage.getItem('firebase-token')
 	}
 
+	get isAuthentificated(): Observable<boolean> {
+		return of(!!this.token)
+	}
+
 	constructor(
 		private readonly http: HttpClient,
-		private readonly errorsService: ErrorsService,
-		@Inject(TuiAlertService) private readonly alerts: TuiAlertService,
+		private readonly notificationService: NotificationsService,
 	) {}
-
-	showNotification(error: string): void {
-		const message = this.errorsService.getMessage(error)
-
-		this.alerts
-			.open(`<strong>${message}</strong>`, {
-				label: 'Error!',
-				status: TuiNotification.Error,
-				autoClose: true,
-			})
-			.subscribe()
-	}
 
 	login(
 		user: IUser & { returnSecureToken?: boolean },
@@ -57,7 +49,9 @@ export class AuthService {
 			.pipe(
 				tap(this.setToken),
 				catchError((error) => {
-					this.showNotification(error.error.error.message)
+					this.notificationService.showNotification(
+						error.error.error.message,
+					)
 					return EMPTY
 				}),
 			)
@@ -65,10 +59,6 @@ export class AuthService {
 
 	logout() {
 		this.setToken(null)
-	}
-
-	isAuthentificated() {
-		return !!this.token
 	}
 
 	private setToken(response: null): void

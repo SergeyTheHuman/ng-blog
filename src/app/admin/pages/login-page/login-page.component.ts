@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { IUser } from '@src/app/admin/shared/interfaces/user.interface'
 import { AuthService } from '@src/app/admin/shared/services/auth.service'
+import { NotificationsService } from '@src/app/shared/services/notifications/notifications.service'
 import { TUI_VALIDATION_ERRORS } from '@taiga-ui/kit'
 import { finalize, of, Subject, takeUntil } from 'rxjs'
 
@@ -32,6 +33,8 @@ export class LoginPageComponent implements OnInit {
 	constructor(
 		private readonly authService: AuthService,
 		private readonly router: Router,
+		private readonly route: ActivatedRoute,
+		private readonly notificationsService: NotificationsService,
 	) {}
 
 	ngOnInit(): void {
@@ -46,6 +49,14 @@ export class LoginPageComponent implements OnInit {
 				Validators.minLength(3),
 			]),
 		})
+
+		this.route.queryParams
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((params) => {
+				if (params['loginFailed']) {
+					this.notificationsService.showNotification('LOGIN_FAILED')
+				}
+			})
 	}
 
 	submit() {
