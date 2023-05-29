@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AdminNavigationComponent } from '@src/app/admin/shared/navigation/navigation.component'
+import { AuthService } from '@src/app/admin/shared/services/auth.service'
+import { SharedModule } from '@src/app/shared/shared.module'
 import {
 	TuiButtonModule,
 	TuiErrorModule,
@@ -29,6 +31,7 @@ import {
 		AdminNavigationComponent,
 	],
 	imports: [
+		SharedModule,
 		CommonModule,
 		AdminRouting,
 		FormsModule,
@@ -41,5 +44,6 @@ import {
 		TuiButtonModule,
 	],
 	exports: [],
+	providers: [AuthService],
 })
 export class AdminModule {}

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Router } from '@angular/router'
+import { IUser } from '@src/app/admin/shared/interfaces/user.interface'
+import { AuthService } from '@src/app/admin/shared/services/auth.service'
 import { TUI_VALIDATION_ERRORS } from '@taiga-ui/kit'
-import { of } from 'rxjs'
+import { finalize, of, Subject, takeUntil } from 'rxjs'
 
 @Component({
 	selector: 'isv-login-page',
@@ -22,9 +25,14 @@ import { of } from 'rxjs'
 	],
 })
 export class LoginPageComponent implements OnInit {
+	destroy$: Subject<string> = new Subject()
 	form!: FormGroup
+	loading: boolean = false
 
-	constructor() {}
+	constructor(
+		private readonly authService: AuthService,
+		private readonly router: Router,
+	) {}
 
 	ngOnInit(): void {
 		this.form = new FormGroup({
@@ -43,6 +51,18 @@ export class LoginPageComponent implements OnInit {
 	submit() {
 		if (this.form.invalid) return
 
-		console.log(this.form.value)
+		const user: IUser = this.form.value
+		this.loading = true
+
+		this.authService
+			.login(user)
+			.pipe(
+				takeUntil(this.destroy$),
+				finalize(() => (this.loading = false)),
+			)
+			.subscribe((result) => {
+				this.form.reset()
+				this.router.navigate(['admin', 'dashboard'])
+			})
 	}
 }
