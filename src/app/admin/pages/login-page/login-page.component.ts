@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { IUser } from '@src/app/admin/shared/interfaces/user.interface'
@@ -24,6 +24,7 @@ import { finalize, of, Subject, takeUntil } from 'rxjs'
 			},
 		},
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPageComponent implements OnInit {
 	destroy$: Subject<string> = new Subject()

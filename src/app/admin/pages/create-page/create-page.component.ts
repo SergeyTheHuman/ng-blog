@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core'
+import {
+	ChangeDetectionStrategy,
+	Component,
+	OnDestroy,
+	OnInit,
+} from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { IPost } from '@src/app/admin/shared/interfaces/post.interface'
 import { PostsService } from '@src/app/shared/services/posts/posts.service'
@@ -7,7 +12,7 @@ import {
 	TUI_EDITOR_EXTENSIONS,
 } from '@taiga-ui/addon-editor'
 import { TUI_VALIDATION_ERRORS } from '@taiga-ui/kit'
-import { of } from 'rxjs'
+import { of, Subject, takeUntil } from 'rxjs'
 
 @Component({
 	selector: 'isv-create-page',
@@ -30,8 +35,10 @@ import { of } from 'rxjs'
 			useValue: defaultEditorExtensions,
 		},
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreatePageComponent implements OnInit {
+export class CreatePageComponent implements OnInit, OnDestroy {
+	destroy$: Subject<string> = new Subject()
 	form!: FormGroup
 
 	constructor(private readonly postsService: PostsService) {}
@@ -53,6 +60,10 @@ export class CreatePageComponent implements OnInit {
 		})
 	}
 
+	ngOnDestroy(): void {
+		this.destroy$.next('')
+	}
+
 	submit() {
 		const post: IPost = {
 			title: this.form.value.title,
@@ -63,6 +74,7 @@ export class CreatePageComponent implements OnInit {
 
 		this.postsService
 			.create(post)
-			.subscribe((response) => console.log(response))
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((response) => this.form.reset())
 	}
 }

@@ -1,1 +1,143 @@
-<p>dashboard-page works!</p>
+<cdk-virtual-scroll-viewport
+	#viewport
+	tuiScrollable
+	class="viewport tui-zero-scrollbar"
+	[itemSize]="45"
+	[maxBufferPx]="500"
+	[minBufferPx]="400"
+>
+	<ng-container tuiTableFilters>
+		<form
+			class="form"
+			[formGroup]="form"
+		>
+			<h2>Filters</h2>
+			<tui-input
+				tuiTableFilter="title"
+				formControlName="title"
+				class="control"
+				[tuiGenericFilter]="filterString"
+			>
+				Title
+			</tui-input>
+			<tui-input
+				tuiTableFilter="author"
+				formControlName="author"
+				class="control"
+				[tuiGenericFilter]="filterString"
+			>
+				Author
+			</tui-input>
+		</form>
+		<tui-loader
+			[overlay]="true"
+			[showLoader]="isPostsLoading"
+		>
+			<table
+				tuiTable
+				[columns]="columns"
+			>
+				<thead>
+					<tr tuiThGroup>
+						<th
+							*tuiHead="'id'"
+							tuiTh
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']"
+						>
+							Id
+						</th>
+						<th
+							*tuiHead="'author'"
+							tuiTh
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']"
+						>
+							Author
+						</th>
+						<th
+							*tuiHead="'title'"
+							tuiTh
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']"
+						>
+							Title
+						</th>
+						<th
+							*tuiHead="'date'"
+							tuiTh
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']"
+						>
+							Date
+						</th>
+						<th
+							*tuiHead="'action'"
+							tuiTh
+							[sorter]="null"
+							[sticky]="true"
+							[style.top.px]="-viewport['_renderedContentOffset']"
+						>
+							Action
+						</th>
+					</tr>
+				</thead>
+				<tbody tuiTbody>
+					<tr
+						*cdkVirtualFor="
+							let post of posts | tuiTableSort | tuiTableFilters | async;
+							let i = index
+						"
+						tuiTr
+					>
+						<td
+							*tuiCell="'id'"
+							tuiTd
+						>
+							{{ post.numberId }}
+						</td>
+						<td
+							*tuiCell="'author'"
+							tuiTd
+						>
+							{{ post.author }}
+						</td>
+						<td
+							*tuiCell="'title'"
+							tuiTd
+						>
+							{{ post.title }}
+						</td>
+						<td
+							*tuiCell="'date'"
+							tuiTd
+						>
+							{{ post.date | date }}
+						</td>
+						<td
+							*tuiCell="'action'"
+							tuiTd
+						>
+							<div class="actions">
+								<button
+									tuiIconButton
+									type="button"
+									icon="tuiIconEdit2Large"
+									size="m"
+									[routerLink]="['/admin', 'post', post.id, 'edit']"
+								></button>
+								<button
+									tuiIconButton
+									type="button"
+									icon="tuiIconTrash2Large"
+									size="m"
+									(click)="deletePost(post.id)"
+								></button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</tui-loader>
+	</ng-container>
+</cdk-virtual-scroll-viewport>

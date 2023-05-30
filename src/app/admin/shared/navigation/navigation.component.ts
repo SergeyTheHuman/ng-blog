@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { AuthService } from '@src/app/admin/shared/services/auth.service'
 
@@ -6,6 +6,7 @@ import { AuthService } from '@src/app/admin/shared/services/auth.service'
 	selector: 'isv-admin-navigation',
 	templateUrl: './navigation.component.html',
 	styleUrls: ['./navigation.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminNavigationComponent {
 	constructor(

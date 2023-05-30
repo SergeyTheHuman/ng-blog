@@ -15,6 +15,7 @@ import {
 } from '@src/app/shared/services/notifications/notifications'
 import { NotificationsService } from '@src/app/shared/services/notifications/notifications.service'
 import { SharedModule } from '@src/app/shared/shared.module'
+import { TuiTableFiltersModule } from '@taiga-ui/addon-table'
 import { TuiAlertModule, TuiButtonModule, TuiRootModule } from '@taiga-ui/core'
 import { NavigationComponent } from './main/shared/navigation/navigation.component'
 import { PostComponent } from './main/shared/post/post.component'
@@ -36,6 +37,7 @@ import { PostComponent } from './main/shared/post/post.component'
 		TuiRootModule,
 		TuiButtonModule,
 		AppRoutingModule,
+		TuiTableFiltersModule,
 	],
 	providers: [
 		NotificationsService,
