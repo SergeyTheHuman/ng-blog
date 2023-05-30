@@ -1,7 +1,8 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
-import { NgModule } from '@angular/core'
+import { isDevMode, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { ServiceWorkerModule } from '@angular/service-worker'
 import { AuthService } from '@src/app/admin/shared/services/auth.service'
 import { AppComponent } from '@src/app/app.component'
 import { AppRoutingModule } from '@src/app/app.routing'
@@ -46,6 +47,12 @@ import { PostComponent } from './main/shared/post/post.component'
 		TuiTableFiltersModule,
 		TuiLoaderModule,
 		TuiEditorSocketModule,
+		ServiceWorkerModule.register('ngsw-worker.js', {
+			enabled: !isDevMode(),
+			// Register the ServiceWorker as soon as the application is stable
+			// or after 30 seconds (whichever comes first).
+			registrationStrategy: 'registerWhenStable:30000',
+		}),
 	],
 	providers: [
 		NotificationsService,
