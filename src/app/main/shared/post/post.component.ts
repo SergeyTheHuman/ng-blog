@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
+import { IPost } from '@src/app/admin/shared/interfaces/post.interface'
 
 @Component({
 	selector: 'isv-post',
@@ -6,4 +7,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
 	styleUrls: ['./post.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PostComponent {}
+export class PostComponent {
+	@Input()
+	post!: IPost
+}

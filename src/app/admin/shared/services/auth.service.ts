@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
+import { Injectable, OnInit } from '@angular/core'
 import { IFireBaseAuthResponse } from '@src/app/admin/shared/interfaces/firebase-auth.interface'
 import { IUser } from '@src/app/admin/shared/interfaces/user.interface'
 import { NotificationsService } from '@src/app/shared/services/notifications/notifications.service'
 import { environment } from '@src/environments/environment'
-import { catchError, EMPTY, Observable, of, tap } from 'rxjs'
+import { BehaviorSubject, catchError, EMPTY, Observable, of, tap } from 'rxjs'
 
 @Injectable({
 	providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements OnInit {
 	get token(): string | null {
 		const expiresDateStr: string =
 			localStorage.getItem('firebase-token-expires') || ''
@@ -27,6 +27,10 @@ export class AuthService {
 		return localStorage.getItem('firebase-token')
 	}
 
+	isAuthentificated$: BehaviorSubject<boolean> = new BehaviorSubject(
+		!!this.token,
+	)
+
 	get isAuthentificated(): Observable<boolean> {
 		return of(!!this.token)
 	}
@@ -35,6 +39,10 @@ export class AuthService {
 		private readonly http: HttpClient,
 		private readonly notificationService: NotificationsService,
 	) {}
+
+	ngOnInit() {
+		this.isAuthentificated$.next(!!this.token)
+	}
 
 	login(
 		user: IUser & { returnSecureToken?: boolean },
@@ -47,8 +55,9 @@ export class AuthService {
 				user,
 			)
 			.pipe(
-				tap(this.setToken),
+				tap(this.setToken.bind(this)),
 				catchError((error) => {
+					debugger
 					this.notificationService.showNotification(
 						error.error.error.message,
 					)
@@ -64,12 +73,17 @@ export class AuthService {
 	private setToken(response: null): void
 	private setToken(response: IFireBaseAuthResponse): void
 	private setToken(response: IFireBaseAuthResponse | null): void {
-		if (response === null) return localStorage.clear()
+		if (response === null) {
+			this.isAuthentificated$.next(false)
+			localStorage.clear()
+			return
+		}
 
 		const expiresDate: Date = new Date(
 			new Date().getTime() + +response.expiresIn * 1000,
 		)
 		localStorage.setItem('firebase-token', response.idToken)
 		localStorage.setItem('firebase-token-expires', expiresDate.toString())
+		this.isAuthentificated$.next(true)
 	}
 }

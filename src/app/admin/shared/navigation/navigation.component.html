@@ -1,23 +1,25 @@
 <nav>
-	<ul *ngIf="authService.isAuthentificated | async">
+	<ul>
 		<li
 			[routerLinkActive]="'active-link'"
 			[routerLinkActiveOptions]="{ exact: true }"
 		>
 			<a [routerLink]="['/']">Home</a>
 		</li>
-		<li [routerLinkActive]="'active-link'">
-			<a [routerLink]="['/admin', 'dashboard']">Dashboard</a>
-		</li>
-		<li [routerLinkActive]="'active-link'">
-			<a [routerLink]="['/admin', 'create']">Create</a>
-		</li>
-		<li [routerLinkActive]="'active-link'">
-			<a
-				href="#"
-				(click)="logout($event)"
-				>Logout</a
-			>
-		</li>
+		<ng-container *ngIf="authService.isAuthentificated | async">
+			<li [routerLinkActive]="'active-link'">
+				<a [routerLink]="['/admin', 'dashboard']">Dashboard</a>
+			</li>
+			<li [routerLinkActive]="'active-link'">
+				<a [routerLink]="['/admin', 'create']">Create</a>
+			</li>
+			<li [routerLinkActive]="'active-link'">
+				<a
+					href="#"
+					(click)="logout($event)"
+					>Logout</a
+				>
+			</li>
+		</ng-container>
 	</ul>
 </nav>

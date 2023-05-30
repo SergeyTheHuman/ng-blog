@@ -1,3 +1,20 @@
-<div>
-	<isv-post *ngFor="let i of [1, 2, 3, 4, 5]"></isv-post>
-</div>
+<tui-loader
+	[overlay]="true"
+	[showLoader]="isPostsLoading"
+>
+	<div
+		class="posts"
+		*ngIf="posts$?.length; else noPosts"
+	>
+		<isv-post
+			*ngFor="let post of posts$"
+			[post]="post"
+		></isv-post>
+	</div>
+</tui-loader>
+
+<ng-template #noPosts>
+	<div class="no-posts">
+		<h2>There is no posts!</h2>
+	</div>
+</ng-template>
