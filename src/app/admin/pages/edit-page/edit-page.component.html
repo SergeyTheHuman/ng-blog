@@ -1,1 +1,60 @@
-<p>edit-page works!</p>
+<form
+	class="form"
+	[formGroup]="form"
+	(submit)="submit()"
+>
+	<h2>Editing post</h2>
+	<tui-loader
+		[overlay]="true"
+		[showLoader]="isPostLoading"
+	>
+		<div class="form-control">
+			<h4>Title</h4>
+			<tui-input formControlName="title">Title</tui-input>
+			<tui-error
+				formControlName="title"
+				[error]="[] | tuiFieldError | async"
+			></tui-error>
+		</div>
+	</tui-loader>
+	<tui-loader
+		[overlay]="true"
+		[showLoader]="isPostLoading"
+	>
+		<div class="form-control">
+			<h4>Content</h4>
+			<tui-editor
+				exampleText="Example"
+				formControlName="content"
+			>
+				Placeholder
+			</tui-editor>
+			<tui-error
+				formControlName="content"
+				[error]="[] | tuiFieldError | async"
+			></tui-error>
+		</div>
+	</tui-loader>
+
+	<footer>
+		<button
+			tuiButton
+			type="submit"
+			appearance="primary"
+			size="m"
+			[disabled]="form.invalid"
+		>
+			Edit
+		</button>
+		<button
+			tuiButton
+			type="button"
+			appearance="primary"
+			size="m"
+			(click)="goBack()"
+			[disabled]="form.invalid"
+		>
+			Go back
+		</button>
+	</footer>
+</form>

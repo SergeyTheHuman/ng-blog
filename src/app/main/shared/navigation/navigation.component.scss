@@ -1,19 +1,30 @@
 nav {
+	display: flex;
+	align-items: center;
+	gap: 2rem;
 	width: 100%;
 	padding: 1.5rem;
 	background-color: peachpuff;
 	border-bottom: 5px solid orange;
-
-	ul {
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
-		gap: 1rem;
-		font-size: 2rem;
-
-		a {
-			text-decoration: none;
-			color: black;
-		}
-	}
+}
+h1 {
+	font-size: 2rem;
+}
+ul {
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	font-size: 1.5rem;
+}
+li {
+	padding: 0.5rem;
+}
+a {
+	text-decoration: none;
+}
+.active-link {
+	background-color: lightyellow;
+	border-radius: 1rem;
+	box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.25);
 }

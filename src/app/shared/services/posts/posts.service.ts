@@ -26,6 +26,13 @@ export class PostsService {
 			)
 	}
 
+	update(post: IPost): Observable<IPost> {
+		return this.http.patch<IPost>(
+			`${environment.firebaseDbUrl}/posts/${post.id}.json`,
+			post,
+		)
+	}
+
 	getAll(): Observable<IPost[]> {
 		return this.http.get(`${environment.firebaseDbUrl}/posts.json`).pipe(
 			map((response: { [key: string]: any }) => {
@@ -37,6 +44,24 @@ export class PostsService {
 					numberId: i++,
 				}))
 			}),
+		)
+	}
+
+	getOne(id: string): Observable<IPost> {
+		return this.http
+			.get<IPost>(`${environment.firebaseDbUrl}/posts/${id}.json`)
+			.pipe(
+				map((post: IPost) => ({
+					...post,
+					id,
+					date: new Date(post.date),
+				})),
+			)
+	}
+
+	remove(id: string): Observable<void> {
+		return this.http.delete<void>(
+			`${environment.firebaseDbUrl}/posts/${id}.json`,
 		)
 	}
 }

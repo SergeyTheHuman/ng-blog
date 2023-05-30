@@ -6,6 +6,8 @@ import {
 } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { IPost } from '@src/app/admin/shared/interfaces/post.interface'
+import { notifications } from '@src/app/shared/services/notifications/notifications'
+import { NotificationsService } from '@src/app/shared/services/notifications/notifications.service'
 import { PostsService } from '@src/app/shared/services/posts/posts.service'
 import {
 	defaultEditorExtensions,
@@ -41,7 +43,10 @@ export class CreatePageComponent implements OnInit, OnDestroy {
 	destroy$: Subject<string> = new Subject()
 	form!: FormGroup
 
-	constructor(private readonly postsService: PostsService) {}
+	constructor(
+		private readonly postsService: PostsService,
+		private readonly notificationsService: NotificationsService,
+	) {}
 
 	ngOnInit(): void {
 		this.form = new FormGroup({
@@ -62,6 +67,7 @@ export class CreatePageComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.destroy$.next('')
+		this.destroy$.complete()
 	}
 
 	submit() {
@@ -75,6 +81,11 @@ export class CreatePageComponent implements OnInit, OnDestroy {
 		this.postsService
 			.create(post)
 			.pipe(takeUntil(this.destroy$))
-			.subscribe((response) => this.form.reset())
+			.subscribe((response) => {
+				this.form.reset()
+				this.notificationsService.showNotification(
+					notifications.CREATE_SUCCESS,
+				)
+			})
 	}
 }

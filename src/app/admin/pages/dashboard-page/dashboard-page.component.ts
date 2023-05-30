@@ -8,7 +8,7 @@ import {
 import { FormControl, FormGroup } from '@angular/forms'
 import { IPost } from '@src/app/admin/shared/interfaces/post.interface'
 import { PostsService } from '@src/app/shared/services/posts/posts.service'
-import { Subject } from 'rxjs'
+import { Subject, takeUntil } from 'rxjs'
 
 @Component({
 	selector: 'isv-dashboard-page',
@@ -46,7 +46,16 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.destroy$.next('')
+		this.destroy$.complete()
 	}
 
-	deletePost(id?: string) {}
+	deletePost(id: string) {
+		this.postsService
+			.remove(id)
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((response) => {
+				this.posts = this.posts.filter((post) => post.id !== id)
+				this.changeDetectorRef.detectChanges()
+			})
+	}
 }

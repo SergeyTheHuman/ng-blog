@@ -1,37 +1,37 @@
-<cdk-virtual-scroll-viewport
-	#viewport
-	tuiScrollable
-	class="viewport tui-zero-scrollbar"
-	[itemSize]="45"
-	[maxBufferPx]="500"
-	[minBufferPx]="400"
->
-	<ng-container tuiTableFilters>
-		<form
-			class="form"
-			[formGroup]="form"
+<ng-container tuiTableFilters>
+	<form
+		class="form"
+		[formGroup]="form"
+	>
+		<h2>Filters</h2>
+		<tui-input
+			tuiTableFilter="title"
+			formControlName="title"
+			class="control"
+			[tuiGenericFilter]="filterString"
 		>
-			<h2>Filters</h2>
-			<tui-input
-				tuiTableFilter="title"
-				formControlName="title"
-				class="control"
-				[tuiGenericFilter]="filterString"
-			>
-				Title
-			</tui-input>
-			<tui-input
-				tuiTableFilter="author"
-				formControlName="author"
-				class="control"
-				[tuiGenericFilter]="filterString"
-			>
-				Author
-			</tui-input>
-		</form>
-		<tui-loader
-			[overlay]="true"
-			[showLoader]="isPostsLoading"
+			Title
+		</tui-input>
+		<tui-input
+			tuiTableFilter="author"
+			formControlName="author"
+			class="control"
+			[tuiGenericFilter]="filterString"
+		>
+			Author
+		</tui-input>
+	</form>
+	<tui-loader
+		[overlay]="true"
+		[showLoader]="isPostsLoading"
+	>
+		<cdk-virtual-scroll-viewport
+			#viewport
+			tuiScrollable
+			class="viewport tui-zero-scrollbar"
+			[itemSize]="45"
+			[maxBufferPx]="500"
+			[minBufferPx]="400"
 		>
 			<table
 				tuiTable
@@ -85,7 +85,7 @@
 				<tbody tuiTbody>
 					<tr
 						*cdkVirtualFor="
-							let post of posts | tuiTableSort | tuiTableFilters | async;
+							let post of posts | tuiTableSort | tuiTableFilters;
 							let i = index
 						"
 						tuiTr
@@ -138,6 +138,6 @@
 					</tr>
 				</tbody>
 			</table>
-		</tui-loader>
-	</ng-container>
-</cdk-virtual-scroll-viewport>
+		</cdk-virtual-scroll-viewport>
+	</tui-loader>
+</ng-container>

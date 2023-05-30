@@ -1,10 +1,13 @@
 <nav>
 	<ul>
-		<li>
-			<a href="">Home</a>
+		<li
+			[routerLinkActive]="'active-link'"
+			[routerLinkActiveOptions]="{ exact: true }"
+		>
+			<a [routerLink]="['/']">Home</a>
 		</li>
-		<li>
-			<a [routerLink]="['admin']">Admin</a>
+		<li [routerLinkActive]="'active-link'">
+			<a [routerLink]="['/admin']">Admin</a>
 		</li>
 	</ul>
 </nav>

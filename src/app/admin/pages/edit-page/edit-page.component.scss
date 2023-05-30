@@ -1,0 +1,27 @@
+.form {
+	max-width: 70vw;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	gap: 2rem;
+	padding: 2rem;
+	background-color: peachpuff;
+	border-radius: 1rem;
+
+	h2 {
+		font-size: 1.5rem;
+	}
+}
+
+.form-control {
+	& > h4 {
+		margin-bottom: 1rem;
+		font-size: 1.15rem;
+	}
+}
+
+footer {
+	display: flex;
+	gap: 1rem;
+}
